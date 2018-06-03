@@ -12,13 +12,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the About button */
     public void showAbout(View view) {
         Intent intent = new Intent(this, DisplayAboutActivity.class);
         startActivity(intent);
     }
-
+    /** Called when the user taps the Generate Error button */
     public void generateError(View view){
         throw new RuntimeException("This is an intentioned Error!");
+    }
+    /** Called when the user taps the dictionary button */
+    public void testDictionary(View view){
+        Intent intent = new Intent(this, TestDictionaryActivity.class);
+        startActivity(intent);
     }
 }
