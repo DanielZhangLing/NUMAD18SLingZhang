@@ -5,4 +5,10 @@
     <string name="button_error">Generate Error</string>
     <string name="button_dictionary">Dictionary</string>
     <string name="button_clear">Clear</string>
+    <string name="button_acknowledgments">Acknowledgments</string>
+    <string name="title_test_dictionary">Test Dictionary</string>
+    <string name="link_1">Generate Bee: https://stackoverflow.com/questions/29509010/how-to-play-a-short-beep-to-android-phones-loudspeaker-programmatically</string>
+    <string name="link_2">TextWatcher Doc: https://developer.android.com/reference/android/text/TextWatcher</string>
+    <string name="link_3">Read Text: https://stackoverflow.com/questions/4087674/android-read-text-raw-resource-file</string>
+    <string name="link_4">Dictionary source: http://wordlist.aspell.net</string>
 </resources>

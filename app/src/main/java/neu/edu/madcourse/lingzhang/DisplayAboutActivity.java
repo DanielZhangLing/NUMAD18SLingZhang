@@ -10,6 +10,7 @@ public class DisplayAboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_about);
+        this.setTitle(getResources().getText(R.string.button_about));
         String message = "" +
                 "Name: Ling Zhang\n" +
                 "Email: zhang.ling1@husky.neu.edu\n" +

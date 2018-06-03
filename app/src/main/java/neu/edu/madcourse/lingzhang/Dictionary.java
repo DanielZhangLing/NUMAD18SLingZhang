@@ -19,6 +19,6 @@ public class Dictionary {
     }
 
     boolean isWord(String word){
-        return word.length() >= 3 && set.contains(word);
+        return word.length() >= 3 && set.contains(word.toLowerCase());
     }
 }

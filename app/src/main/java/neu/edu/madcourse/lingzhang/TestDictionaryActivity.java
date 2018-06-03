@@ -1,5 +1,6 @@
 package neu.edu.madcourse.lingzhang;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_dictionary);
+        this.setTitle(getResources().getText(R.string.title_test_dictionary));
         toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         wordList = new ArrayList<>();
         ll = findViewById(R.id.wordList);
@@ -39,6 +41,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         editText = findViewById(R.id.editText);
+        /** Check dictionary when the user input a character */
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,10 +67,17 @@ public class TestDictionaryActivity extends AppCompatActivity {
         });
     }
 
+    /** Clean record when the user taps the clear button */
     public void clearWords(View view){
         wordList.clear();
         ll.removeAllViews();
         editText.setText("");
+    }
+
+    /** Show acknowledgments when the user taps the acknowledgments  button */
+    public void showAcknowledgments(View view){
+        Intent intent = new Intent(this, AcknowledgmentsActivity.class);
+        startActivity(intent);
     }
 }
 
