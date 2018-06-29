@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/control_padding"
+    tools:context=".wordGame.GameActivity">
+
+    <Button
+        android:id="@+id/button_restart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/retry128"
+        android:elevation="@dimen/elevation_low"
+        android:text="@string/restart_label" />
+
+    <Button
+        android:id="@+id/button_check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/check128"
+        android:elevation="@dimen/elevation_low"
+        android:text="@string/check_label" />
+
+    <Button
+        android:id="@+id/button_pause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/pause128"
+        android:elevation="@dimen/elevation_low"
+        android:text="@string/pause_label" />
+
+    <Button
+        android:id="@+id/button_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/return_menu128"
+        android:elevation="@dimen/elevation_low"
+        android:text="@string/main_menu_label" />
+</LinearLayout>

@@ -7,5 +7,32 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!-- Theme for word game theme. -->
+    <style name="WordGameTheme" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="TileButton">
+        <item name="android:layout_width">@dimen/tile_size</item>
+        <item name="android:layout_height">@dimen/tile_size</item>
+        <item name="android:layout_margin">@dimen/tile_margin</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:padding">@dimen/tile_padding</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/tile</item>
+    </style>
+    <style name="HomeButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/purple_color</item>
+        <item name="colorButtonNormal">@color/pink_color</item>
+    </style>
 
 </resources>

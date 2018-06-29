@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import neu.edu.madcourse.lingzhang.wordGame.WordGameMainActivity;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the dictionary button */
     public void testDictionary(View view){
         Intent intent = new Intent(this, TestDictionaryActivity.class);
+        startActivity(intent);
+    }
+    /** Called when the user taps the word game button */
+    public void wordGame(View view){
+        Intent intent = new Intent(this, WordGameMainActivity.class);
         startActivity(intent);
     }
 }

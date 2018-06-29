@@ -26,7 +26,12 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".TestDictionaryActivity" />
-        <activity android:name=".AcknowledgmentsActivity"></activity>
+        <activity android:name=".AcknowledgmentsActivity" />
+        <activity
+            android:name=".wordGame.WordGameMainActivity"
+            android:label="@string/title_activity_word_game_main"
+            android:theme="@style/WordGameTheme"></activity>
+        <activity android:name=".wordGame.GameActivity"/>
     </application>
 
 </manifest>

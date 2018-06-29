@@ -51,7 +51,7 @@ public class TestDictionaryActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str = s.toString();
-                if (dict.isWord(str) && !wordList.contains(str)) {
+                if (dict.isWord(str, 3) && !wordList.contains(str)) {
                     wordList.add(str);
                     textView = new TextView(getApplicationContext());
                     textView.setText(str);

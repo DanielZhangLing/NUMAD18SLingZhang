@@ -11,4 +11,25 @@
     <string name="link_2">TextWatcher Doc: https://developer.android.com/reference/android/text/TextWatcher</string>
     <string name="link_3">Read Text: https://stackoverflow.com/questions/4087674/android-read-text-raw-resource-file</string>
     <string name="link_4">Dictionary source: http://wordlist.aspell.net</string>
+    <string name="button_word_game">Word Game</string>
+    <string name="title_activity_word_game_main">WordGameMainActivity</string>
+    <string name="long_app_name">Scroggle</string>
+    <string name="about_title">About Scroggle</string>
+    <string name="about_text">add reference here <div>Icons made by <a href="https://www.flaticon.com/authors/twitter" title="Question">Question</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC 3.0 BY</a></div><br/>Icon made by Roundicons from www.flaticon.com <br/> BGM from www.bensound.com</string>
+    <string name="ok_label">OK</string>
+    <string name="action_settings">Settings</string>
+    <string name="continue_label">Continue</string>
+    <string name="new_game_label">New Game</string>
+    <string name="about_label">About</string>
+    <string name="restart_label">Restart</string>
+    <string name="main_menu_label">Menu</string>
+    <string name="declare_winner">%1$s is the winner</string>
+    <string name="initial_score">SCORE: 0</string>
+    <string name="initial_timer">TIMER: 90</string>
+    <string name="check_label">Check</string>
+    <string name="pause_label">Pause</string>
+    <string name="resume_label">Resume</string>
+    <string name="finish_label">Finish !!!</string>
+    <string name="initial_phase">Phase 1</string>
+
 </resources>

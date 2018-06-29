@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/a"
+        android:maxLevel="1" />
+    <item
+        android:drawable="@drawable/b"
+        android:maxLevel="2" />
+    <item
+        android:drawable="@drawable/c"
+        android:maxLevel="3" />
+    <item
+        android:drawable="@drawable/d"
+        android:maxLevel="4" />
+    <item
+        android:drawable="@drawable/e"
+        android:maxLevel="5" />
+    <item
+        android:drawable="@drawable/f"
+        android:maxLevel="6" />
+    <item
+        android:drawable="@drawable/g"
+        android:maxLevel="7" />
+    <item
+        android:drawable="@drawable/h"
+        android:maxLevel="8" />
+    <item
+        android:drawable="@drawable/i"
+        android:maxLevel="9" />
+    <item
+        android:drawable="@drawable/j"
+        android:maxLevel="10" />
+    <item
+        android:drawable="@drawable/k"
+        android:maxLevel="11" />
+    <item
+        android:drawable="@drawable/l"
+        android:maxLevel="12" />
+    <item
+        android:drawable="@drawable/m"
+        android:maxLevel="13" />
+    <item
+        android:drawable="@drawable/n"
+        android:maxLevel="14" />
+    <item
+        android:drawable="@drawable/o"
+        android:maxLevel="15" />
+    <item
+        android:drawable="@drawable/p"
+        android:maxLevel="16" />
+    <item
+        android:drawable="@drawable/q"
+        android:maxLevel="17" />
+    <item
+        android:drawable="@drawable/r"
+        android:maxLevel="18" />
+    <item
+        android:drawable="@drawable/s"
+        android:maxLevel="19" />
+    <item
+        android:drawable="@drawable/t"
+        android:maxLevel="20" />
+    <item
+        android:drawable="@drawable/u"
+        android:maxLevel="21" />
+    <item
+        android:drawable="@drawable/v"
+        android:maxLevel="22" />
+    <item
+        android:drawable="@drawable/w"
+        android:maxLevel="23" />
+    <item
+        android:drawable="@drawable/x"
+        android:maxLevel="24" />
+    <item
+        android:drawable="@drawable/y"
+        android:maxLevel="25" />
+    <item
+        android:drawable="@drawable/z"
+        android:maxLevel="26" />
+    <item
+        android:drawable="@drawable/tile_empty"
+        android:maxLevel="27" />
+    <item
+        android:drawable="@drawable/close"
+        android:maxLevel="28" />
+    <item
+        android:drawable="@drawable/aa"
+        android:maxLevel="101" />
+    <item
+        android:drawable="@drawable/bb"
+        android:maxLevel="102" />
+    <item
+        android:drawable="@drawable/cc"
+        android:maxLevel="103" />
+    <item
+        android:drawable="@drawable/dd"
+        android:maxLevel="104" />
+    <item
+        android:drawable="@drawable/ee"
+        android:maxLevel="105" />
+    <item
+        android:drawable="@drawable/ff"
+        android:maxLevel="106" />
+    <item
+        android:drawable="@drawable/gg"
+        android:maxLevel="107" />
+    <item
+        android:drawable="@drawable/hh"
+        android:maxLevel="108" />
+    <item
+        android:drawable="@drawable/ii"
+        android:maxLevel="109" />
+    <item
+        android:drawable="@drawable/jj"
+        android:maxLevel="110" />
+    <item
+        android:drawable="@drawable/kk"
+        android:maxLevel="111" />
+    <item
+        android:drawable="@drawable/ll"
+        android:maxLevel="112" />
+    <item
+        android:drawable="@drawable/mm"
+        android:maxLevel="113" />
+    <item
+        android:drawable="@drawable/nn"
+        android:maxLevel="114" />
+    <item
+        android:drawable="@drawable/oo"
+        android:maxLevel="115" />
+    <item
+        android:drawable="@drawable/pp"
+        android:maxLevel="116" />
+    <item
+        android:drawable="@drawable/qq"
+        android:maxLevel="117" />
+    <item
+        android:drawable="@drawable/rr"
+        android:maxLevel="118" />
+    <item
+        android:drawable="@drawable/ss"
+        android:maxLevel="119" />
+    <item
+        android:drawable="@drawable/tt"
+        android:maxLevel="120" />
+    <item
+        android:drawable="@drawable/uu"
+        android:maxLevel="121" />
+    <item
+        android:drawable="@drawable/vv"
+        android:maxLevel="122" />
+    <item
+        android:drawable="@drawable/ww"
+        android:maxLevel="123" />
+    <item
+        android:drawable="@drawable/xx"
+        android:maxLevel="124" />
+    <item
+        android:drawable="@drawable/yy"
+        android:maxLevel="125" />
+    <item
+        android:drawable="@drawable/zz"
+        android:maxLevel="126" />
+</level-list>
