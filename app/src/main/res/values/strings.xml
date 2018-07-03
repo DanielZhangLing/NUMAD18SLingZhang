@@ -31,5 +31,13 @@
     <string name="resume_label">Resume</string>
     <string name="finish_label">Finish !!!</string>
     <string name="initial_phase">Phase 1</string>
+    <string name="button_username">Create User</string>
+    <string name="button_try">Just Try It!</string>
+    <string name="scoreboard_label">Score Board</string>
+    <string name="leaderboard_label">Leader Board</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="msg_subscribed">You will get message when other player got a new record!</string>
+    <string name="msg_feedback">Message sent successfully!</string>
+    <string name="send_topic_msg">You created a new record!</string>
 
 </resources>

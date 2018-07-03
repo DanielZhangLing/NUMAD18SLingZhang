@@ -4,22 +4,50 @@ import android.app.Fragment;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.service.autofill.Dataset;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Stack;
 
 import neu.edu.madcourse.lingzhang.R;
+import neu.edu.madcourse.lingzhang.wordGame.models.Record;
+import neu.edu.madcourse.lingzhang.wordGame.models.User;
 
+import static android.content.ContentValues.TAG;
 import static neu.edu.madcourse.lingzhang.wordGame.WordGameMainActivity.dict;
 
 public class GameFragment extends Fragment {
@@ -35,10 +63,20 @@ public class GameFragment extends Fragment {
     private int mSoundClick, mSoundFalse, mSoundWin, mSoundLose, mSoundFlip;
     private SoundPool mSoundPool;
     private float mVolume = 1f;
-    private int score = 0;
-    private int phase = 1;
+    private int score;
+    private int phase;
+    private int phase1_score;
+    private int phase2_score;
     private StatusFragment mStatusFragment;
     private ToolTipRelativeLayout ttl;
+    private String maxWord;
+    private DatabaseReference mDatabase;
+    private String instanceId;
+    private String username;
+    private static final String TAG = GameActivity.class.getSimpleName();
+    private static final String SERVER_KEY = "key=AAAAIJ7JUU8:APA91bGlKbMAkFaynsxtUC6DBCKSkBkMVyd_eUUUbUNxuRXAmNr9uHtGMWZJLityCx3hfNYkyHscdCoYg7bJW3EvedQ11NsNeGAxu8iuAmDX_LDjjTffgdqJVayk_M5S7XjWidIsv6cyyo-4_JXCBO-hWDR6DVrlsg";
+    private ToolTip toolTip;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +85,6 @@ public class GameFragment extends Fragment {
         initGame();
         mStatusFragment = (StatusFragment) getFragmentManager().findFragmentById(R.id.fragment_game_status);
         ttl = mStatusFragment.getView().findViewById(R.id.tooltip_topframe);
-
         mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         mSoundClick = mSoundPool.load(getActivity(), R.raw.erkanozan_miss, 1);
         mSoundFalse = mSoundPool.load(getActivity(), R.raw.department64_draw, 1);
@@ -70,6 +107,13 @@ public class GameFragment extends Fragment {
 
     public void initGame() {
         Log.d("Scroggle", "init game");
+        score = 0;
+        phase = 1;
+        phase1_score = 0;
+        phase2_score = 0;
+        maxWord = "";
+        instanceId = FirebaseInstanceId.getInstance().getToken();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mEntireBoard = new Tile(this); // Create all the tiles
         mEntireBoard.setStack();
         mWordList = dict.generateWordList();
@@ -128,10 +172,11 @@ public class GameFragment extends Fragment {
                 });
             }
         }
-        ToolTip toolTip = new ToolTip()
+        toolTip = new ToolTip()
                 .withText("In Phase 1. Try to find the longest word in each box!")
                 .withColor(R.color.white_color)
                 .withShadow();
+        ttl.removeAllViews();
         ttl.showToolTipForView(toolTip, mStatusFragment.getView().findViewById(R.id.text_phase));
     }
 
@@ -144,7 +189,7 @@ public class GameFragment extends Fragment {
                 mSoundPool.play(mSoundFlip, mVolume, mVolume, 1, 0, 1f);
                 largeTile.setAvailable(false);
                 System.out.println(largeTile);
-                calculateScore(word.length(), true);
+                calculateScore(word, true);
                 for (int i = 0; i < 9; i++) {
                     mLastLargeSub[i].setAvailable(false);
                     if (!mLastLargeSub[i].isSelected()) {
@@ -154,7 +199,7 @@ public class GameFragment extends Fragment {
                 }
             } else {
                 mSoundPool.play(mSoundFalse, mVolume, mVolume, 1, 0, 1f);
-                calculateScore(word.length(), false);
+                calculateScore(word, false);
                 for (int i = 0; i < 9; i++) {
                     if (mLastLargeSub[i].isSelected()) {
                         releaseTile(mLargeTiles[mLastLarge], mLastLargeSub[i]);
@@ -165,10 +210,10 @@ public class GameFragment extends Fragment {
         } else {
             String word = mEntireBoard.getmWord();
             if (dict.isWord(word, 2)) {
-                calculateScore(word.length(), true);
+                calculateScore(word, true);
                 gameFinished(true);
             } else {
-                calculateScore(word.length(), false);
+                calculateScore(word, false);
                 mSoundPool.play(mSoundFalse, mVolume, mVolume, 1, 0, 1f);
             }
         }
@@ -180,7 +225,43 @@ public class GameFragment extends Fragment {
             mSoundPool.play(mSoundWin, mVolume, mVolume, 1, 0, 1f);
         else
             mSoundPool.play(mSoundLose, mVolume, mVolume, 1, 0, 1f);
+        addRecord();
         ((GameActivity) getActivity()).onFinish(score, isFinish);
+    }
+
+    public void addRecord() {
+        DatabaseReference newRef = mDatabase.child("record");
+        Record newRecord = new Record(instanceId, username, score, phase1_score, phase2_score, maxWord);
+        newRef.push().setValue(newRecord);
+        subscribeToRecord();
+        mDatabase.child("record").orderByChild("createDate").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int max = Integer.MIN_VALUE;
+                Stack<Integer> scoreStack = new Stack<>();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Record record = child.getValue(Record.class);
+                    int score = record.getScore();
+                    if (score > max)
+                        max = score;
+                    scoreStack.push(score);
+                }
+                if (!scoreStack.isEmpty() && scoreStack.pop() == max)
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendMessageToRecord();
+                        }
+                    }).start();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
     }
 
     ;
@@ -281,14 +362,24 @@ public class GameFragment extends Fragment {
         }
     }
 
-    public void calculateScore(int length, boolean find) {
+    public void calculateScore(String word, boolean find) {
+        int length = word.length();
         if (!find) {
             score -= 5;
             if (score < 0)
                 score = 0;
         } else {
-            score += length * length;
+            if (phase == 1)
+                score += length * length;
+            else
+                score += length * length * 5;
+            if (length >= maxWord.length())
+                maxWord = word;
         }
+        if (phase == 1)
+            phase1_score = score;
+        else
+            phase2_score = score - phase1_score;
 
         mStatusFragment.setScore(score);
     }
@@ -360,10 +451,11 @@ public class GameFragment extends Fragment {
 
             }
         }
-        ToolTip toolTip = new ToolTip()
+        toolTip = new ToolTip()
                 .withText("In Phase 2. Start selecting a letter from each available box!")
                 .withColor(R.color.white_color)
                 .withShadow();
+        ttl.removeAllViews();
         ttl.showToolTipForView(toolTip, mStatusFragment.getView().findViewById(R.id.text_phase));
     }
 
@@ -417,10 +509,11 @@ public class GameFragment extends Fragment {
                 });
             }
         }
-        ToolTip toolTip = new ToolTip()
+        toolTip = new ToolTip()
                 .withText("Last step! Find the longest word now!")
                 .withColor(R.color.white_color)
                 .withShadow();
+        ttl.removeAllViews();
         ttl.showToolTipForView(toolTip, mStatusFragment.getView().findViewById(R.id.text_phase));
     }
 
@@ -487,6 +580,12 @@ public class GameFragment extends Fragment {
         builder.append(';');
         builder.append(phase);
         builder.append(';');
+        builder.append(phase1_score);
+        builder.append(';');
+        builder.append(phase2_score);
+        builder.append(';');
+        builder.append(maxWord);
+        builder.append(';');
         for (int large = 0; large < 9; large++) {
             builder.append(getTileString(mLargeTiles[large]));
             builder.append(';');
@@ -510,6 +609,9 @@ public class GameFragment extends Fragment {
         mStatusFragment.setScore(score);
         phase = Integer.parseInt(fields[index++]);
         mStatusFragment.setPhase(phase);
+        phase1_score = Integer.parseInt(fields[index++]);
+        phase2_score = Integer.parseInt(fields[index++]);
+        maxWord = fields[index++];
         for (int large = 0; large < 9; large++) {
             getTileFromString(mLargeTiles[large], fields[index++]);
             for (int small = 0; small < 9; small++) {
@@ -533,6 +635,67 @@ public class GameFragment extends Fragment {
             for (int small = 0; small < 9; small++) {
                 mSmallTiles[large][small].updateDrawableState();
             }
+        }
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void subscribeToRecord() {
+        // [START subscribe_topics]
+        FirebaseMessaging.getInstance().subscribeToTopic("record");
+        // [END subscribe_topics]
+
+        // Log and toast
+        String msg = getString(R.string.msg_subscribed);
+        Log.d(TAG, msg);
+    }
+
+    public void sendMessageToRecord() {
+        if (username == null || username.equals(""))
+            username = "Unknown";
+        JSONObject jPayload = new JSONObject();
+        JSONObject jNotification = new JSONObject();
+        try {
+            jNotification.put("message", "Scroggle");
+            jNotification.put("body", username + " has created the new high score!");
+            jNotification.put("sound", "default");
+            jNotification.put("badge", "1");
+            jNotification.put("click_action", "OPEN_ACTIVITY_1");
+
+            // Populate the Payload object.
+            // Note that "to" is a topic, not a token representing an app instance
+            jPayload.put("to", "/topics/record");
+            jPayload.put("priority", "high");
+            jPayload.put("notification", jNotification);
+
+            // Open the HTTP connection and send the payload
+            URL url = new URL("https://fcm.googleapis.com/fcm/send");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", SERVER_KEY);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // Send FCM message content.
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(jPayload.toString().getBytes());
+            outputStream.close();
+
+            // Read FCM response.
+            InputStream inputStream = conn.getInputStream();
+
+            Handler h = new Handler(Looper.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "run: " + getString(R.string.send_topic_msg));
+                    Toast.makeText(getActivity().getApplicationContext(), getString(R.string.send_topic_msg), Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
         }
     }
 }

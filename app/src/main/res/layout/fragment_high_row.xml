@@ -1,0 +1,36 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/high_row_layout"
+    android:layout_width="0dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/high_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual" />
+
+    <TextView
+        android:id="@+id/high_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual" />
+
+    <TextView
+        android:id="@+id/hg_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual" />
+
+    <TextView
+        android:id="@+id/hg_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual" />
+
+    <ImageView
+        android:id="@+id/hg_congrats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/like" />
+</TableRow>

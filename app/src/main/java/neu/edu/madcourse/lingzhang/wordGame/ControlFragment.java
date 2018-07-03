@@ -40,7 +40,7 @@ public class ControlFragment extends Fragment {
         pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((GameActivity) getActivity()).onPause();
+                ((GameActivity) getActivity()).clickPause();
             }
         });
         return rootView;

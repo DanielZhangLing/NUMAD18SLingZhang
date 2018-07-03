@@ -22,14 +22,15 @@
 
     <LinearLayout
         android:id="@+id/menu_select_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:elevation="@dimen/elevation_high"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/menu_padding"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:context=".wordGame.WordGameMainActivity">
 
         <Button
             android:id="@+id/continue_button"
@@ -82,12 +83,13 @@
     <LinearLayout
         android:id="@+id/username_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:elevation="@dimen/elevation_high"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/menu_padding">
+        android:padding="@dimen/menu_padding"
+        tools:context=".wordGame.WordGameMainActivity">
 
 
         <EditText
@@ -119,5 +121,3 @@
 
 
 </LinearLayout>
-
-
